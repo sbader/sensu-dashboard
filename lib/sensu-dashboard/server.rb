@@ -58,7 +58,13 @@ module Sensu::Dashboard
           end
         end
         $dashboard_settings = settings[:dashboard] || Hash.new
-        $dashboard_settings[:port] ||= 8080
+        unless $dashboard_settings[:port]
+          if ENV['PORT']
+            $dashboard_settings[:port] = ENV['PORT']
+          else
+            $dashboard_settings[:port] = 8080
+          end
+        end
         $dashboard_settings[:poll_frequency] ||= 10
         $api_settings = settings[:api] || Hash.new
         $api_settings[:host] ||= 'localhost'
