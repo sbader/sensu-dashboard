@@ -60,7 +60,7 @@ module Sensu::Dashboard
         $dashboard_settings = settings[:dashboard] || Hash.new
         unless $dashboard_settings[:port]
           if ENV['PORT']
-            $dashboard_settings[:port] = ENV['PORT']
+            $dashboard_settings[:port] = ENV['PORT'].to_i
           else
             $dashboard_settings[:port] = 8080
           end
